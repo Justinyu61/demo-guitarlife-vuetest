@@ -39,7 +39,7 @@ const useRegisterEffect = (showToast) => {
         localStorage.isLogin = true
         await router.push({name: 'Login'})
       } else {
-        showToast('註冊失敗')
+        showToast('註冊失敗!')
       }
     } catch (e) {
       showToast('請求失敗')
