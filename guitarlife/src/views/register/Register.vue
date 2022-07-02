@@ -2,15 +2,21 @@
   <div class="wrapper">
     <img src="" alt="" class="wrapper__img">
     <div class="wrapper__input">
+      <input type="text" placeholder="請輸入身分證" class="wrapper__input__content" v-model="id">
+    </div>
+    <div class="wrapper__input">
+    <input type="text" placeholder="請輸入phone" class="wrapper__input__content" v-model="phone">
+  </div>
+    <div class="wrapper__input">
       <input type="text" placeholder="請輸入E-mail" class="wrapper__input__content" v-model="email">
     </div>
     <div class="wrapper__input">
       <input type="password" placeholder="請輸入密碼" class="wrapper__input__content" v-model="password" autocomplete="new-password">
     </div>
     <div class="wrapper__input">
-      <input type="password" placeholder="請再次輸入密碼" class="wrapper__input__content" v-model="ensurement">
+      <input type="password" placeholder="請再次輸入密碼" class="wrapper__input__content" v-model="ensurement" >
     </div>
-    <div class="wrapper__register-button" @click="handleRegister">註冊</div>
+    <div class="wrapper__register-button" @click="register" >註冊</div>
     <div class="wrapper__register-link" @click="handleLoginClick">已經是會員?</div>
     <toast v-if="show" :message="toastMsg"/>
   </div>
@@ -25,17 +31,27 @@ import Toast, { useToastEffect } from '@/components/Toast'
 const useRegisterEffect = (showToast) => {
 
   const router = useRouter()
-  const data = reactive({ email: '', password: '', ensurement: '', name: '', gender: '', birthday:'', phone: '', address: '', subscribed: '0'})
+  const data = reactive({ id: '', email: '', password: '', phone: '', ensurement: '' })
+
+  const register = () => {
+    console.log(password.value , ensurement.value)
+    if (password.value !== ensurement.value) {
+      showToast('密碼輸入錯誤')
+    } else {
+      handleRegister()
+    }
+  }
 
   const handleRegister = async () => {
     try {
-      const result = await post('/register', {
+      const result = await post('/customer/register', {
+        id: data.id,
         email: data.email,
         password: data.password,
-        ensurement: data.ensurement
+        phone: data.phone
       })
       // console.log(result)
-      if( result?.data?.customer !== "" ) {
+      if (result?.data?.customer !== "") {
         localStorage.isLogin = true
         await router.push({name: 'Login'})
       } else {
@@ -45,8 +61,10 @@ const useRegisterEffect = (showToast) => {
       showToast('請求失敗')
     }
   }
-  const { email, password, ensurement } = toRefs(data)
-  return { email, password, ensurement, handleRegister }
+
+  const { id, phone, email, password, ensurement } = toRefs(data)
+
+  return { id, phone, email, password, ensurement, register, handleRegister }
 }
 
 
@@ -65,11 +83,15 @@ export default {
 
     const { show, toastMsg, showToast } = useToastEffect()
     const { handleLoginClick } = returnLoginEffect()
-    const { email, password, ensurement, handleRegister } = useRegisterEffect(showToast)
+    const { id, phone, email, password, ensurement, register, handleRegister } = useRegisterEffect(showToast)
+
 
     return {
       handleLoginClick,
       handleRegister,
+      register,
+      id,
+      phone,
       email,
       password,
       ensurement,
