@@ -33,11 +33,11 @@ const routes = [
     path: '/forget',
     name: 'Forget',
     component: Forget,
-    beforeEnter (to, from, next) {
-      const { isLogin } = localStorage
-      isLogin ? next({ name: 'Home' }) : next()
-      next()
-    }
+    // beforeEnter (to, from, next) {
+    //   const { isLogin } = localStorage
+    //   isLogin ? next({ name: 'Home' }) : next()
+    //   next()
+    // }
   }
 ]
 
@@ -52,7 +52,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const { isLogin } = localStorage
   const { name } = to
-  const isLoginOrRegister = (name === 'Login' || name === 'Register');
+  const isLoginOrRegister = (name === 'Login' || name === 'Register' || name === 'Forget');
   (isLogin || isLoginOrRegister) ? next() : next({ name: 'Login' })
 })
 

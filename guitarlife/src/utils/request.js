@@ -16,3 +16,18 @@ export const post = (url, data = {}) => {
     })
   })
 }
+// export default get = (url, data = {}) => {
+//   return new Promise((resolve, reject)=> {
+//     axios.get(url, data ,{
+//       baseURL:'/api',
+//       timeout: 5000,
+//       headers: {
+//         'Content-Type': 'application/json',
+//       }
+//     }).then((res) => {
+//       resolve(res)
+//     }, err =>{
+//       reject(err)
+//     })
+//   })
+// }

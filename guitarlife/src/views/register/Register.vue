@@ -2,8 +2,7 @@
   <div class="wrapper">
     <img src="" alt="" class="wrapper__img">
     <div class="wrapper__input">
-      <input type="text" placeholder="請輸入身分證" class="wrapper__input__content" v-model="id">
-    </div>
+      <input type="text" placeholder="請輸入身分證" class="wrapper__input__content" v-model="id">    </div>
     <div class="wrapper__input">
     <input type="text" placeholder="請輸入phone" class="wrapper__input__content" v-model="phone">
   </div>
