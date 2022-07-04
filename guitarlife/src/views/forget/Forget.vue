@@ -33,7 +33,7 @@ const useForgetEffect = (showToast) => {
 //     }
   const handleForget = () => {
     console.log(data.id,data.email)
-    alert('hi')
+    alert('hi you forget password?')
   }
 
   const { id, email } = toRefs(data)
