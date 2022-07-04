@@ -24,7 +24,7 @@ const useCaptchaEffect = (showToast) => {
   }
 
   const { captcha } = toRefs(data)
-  return { captcha , handleCaptcha }
+  return { captcha , handleCaptcha}
 }
 
 const returnLoginEffect = () => {
